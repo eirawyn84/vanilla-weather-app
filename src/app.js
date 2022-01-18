@@ -46,6 +46,32 @@ function displayTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+                  <div class="col-2">
+                    <div class="weather-forecast-date">${day}</div>
+                    <img
+                      src="https://ssl.gstatic.com/onebox/weather/48/sunny_s_cloudy.png"
+                      widt="56"
+                    />
+                    <div class="weather-forecast-temperature">
+                      <span class="weather-forecast-temperature-max"> 18° </span>
+                      <span class="weather-forecast-temperature-min"> 12° </span>
+                    </div>
+                  </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function search(city) {
   let apiKey = "95dbaccedbcba740ac2e91f17611d9d2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -81,6 +107,7 @@ let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
 search("New York");
+displayForecast();
 
 let fahrenheirtLink = document.querySelector("#fahrenheit-link");
 fahrenheirtLink.addEventListener("click", displayFahrenheitTemperature);
